@@ -1,9 +1,6 @@
-import entities.Language;
 import org.apache.spark.SparkConf;
+import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.SparkSession;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class LanguageDetection {
 
@@ -19,17 +16,21 @@ public class LanguageDetection {
                 .config(conf)
                 .getOrCreate();
 
-        Language italian = new Language("train/italian", spark);
-        Language spanish = new Language("train/spanish", spark);
-        Language portuguese = new Language("train/portuguese", spark);
+        Dataset<String> ds = spark.read().textFile("src/main/resources/train/spanish/trafalgar.txt");
+        Dataset<Object> objectDataset = ds.flatMap(r -> r.split(""));
 
-        List<Language> allLanguages  = new ArrayList<>();
+
+        /*LanguageLearner italian = new LanguageLearner("train/italian", spark);
+        LanguageLearner spanish = new LanguageLearner("train/spanish", spark);
+        LanguageLearner portuguese = new LanguageLearner("train/portuguese", spark);
+
+        List<LanguageLearner> allLanguages = new ArrayList<>();
         allLanguages.add(italian);
         allLanguages.add(spanish);
         allLanguages.add(portuguese);
 
-        for (Language language : allLanguages) {
-            language.learn();
-        }
+        for (LanguageLearner language : allLanguages) {
+            language.computeLanguageFrequentWords();
+        }*/
     }
 }

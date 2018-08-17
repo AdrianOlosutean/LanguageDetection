@@ -12,7 +12,7 @@ Author: Benito Pérez Galdós
 
 Release Date: March 1, 2010 [EBook #31465]
 
-Language: Spanish
+LanguageLearner: Spanish
 
 
 *** START OF THIS PROJECT GUTENBERG EBOOK TORMENTO ***
