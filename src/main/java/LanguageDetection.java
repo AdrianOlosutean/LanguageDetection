@@ -1,7 +1,4 @@
-import entities.Language;
-import org.apache.spark.SparkConf;
-import org.apache.spark.sql.SparkSession;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,26 +7,31 @@ public class LanguageDetection {
 
     public static final String PATH = "src/resources/";
 
-    public static void main(String[] args) {
-        final SparkConf conf = new SparkConf()
+    public static void main(String[] args) throws IOException {
+        /*final SparkConf conf = new SparkConf()
                 .setAppName("sada")
                 .setMaster("local[*]");
 
         final SparkSession spark = new SparkSession.Builder()
                 .config(conf)
-                .getOrCreate();
+                .getOrCreate();*/
 
-        Language italian = new Language("train/italian", spark);
-        Language spanish = new Language("train/spanish", spark);
-        Language portuguese = new Language("train/portuguese", spark);
+//        Dataset<String> ds = spark.read().textFile("src/main/resources/train/spanish/trafalgar.txt");
+//        Dataset<Object> objectDataset = ds.flatMap(r -> r.split(""));
 
-        List<Language> allLanguages  = new ArrayList<>();
+
+        LanguageLearner italian = new LanguageLearner("train/italian");
+        LanguageLearner spanish = new LanguageLearner("train/spanish");
+        LanguageLearner portuguese = new LanguageLearner("train/portuguese");
+
+        List<LanguageLearner> allLanguages = new ArrayList<>();
         allLanguages.add(italian);
         allLanguages.add(spanish);
         allLanguages.add(portuguese);
 
-        for (Language language : allLanguages) {
-            language.learn();
+        for (LanguageLearner language : allLanguages) {
+            List<String> allLanguageWords = language.getAllLanguageWords();
+            System.out.println(allLanguageWords.size());
         }
     }
 }
