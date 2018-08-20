@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 public class LanguageClassifier {
 
-
     private List<LanguageMatcher> matchers;
     private SparkSession spark;
 
@@ -25,7 +24,7 @@ public class LanguageClassifier {
         Dataset<String> bookWords = spark.createDataset(bookWordReader.getBookWordStream().collect(Collectors.toList()), Encoders.STRING());
 
         return matchers.stream()
-                .map(matcher -> new MatchingResult(matcher.getName(), matcher.matchBookCounts(bookWords)))
+                .map(matcher -> new MatchingResult(matcher.getLanguageName(), matcher.matchBookCounts(bookWords)))
                 .max(Comparator.comparingInt(MatchingResult::getMatchBookCounts))
                 .orElse(new MatchingResult("none", 0))
                 .getLanguageName();
