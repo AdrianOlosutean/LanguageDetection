@@ -12,7 +12,7 @@ Author: Jaime de Magalhães Lima
 
 Release Date: March 7, 2008 [EBook #24774]
 
-Language: Portuguese
+LanguageWordProcessor: Portuguese
 
 
 *** START OF THIS PROJECT GUTENBERG EBOOK CIDADES E PAISAGENS ***

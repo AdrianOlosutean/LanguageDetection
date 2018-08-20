@@ -20,7 +20,7 @@ Author: Benito Pérez Galdós
 
 Release Date: October 29, 2005  [eBook #16961]
 
-Language: Spanish
+LanguageWordProcessor: Spanish
 
 
 ***START OF THE PROJECT GUTENBERG EBOOK TRAFALGAR***
