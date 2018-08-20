@@ -1,10 +1,8 @@
 package prediction;
 
-import org.apache.spark.sql.Column;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
-import java.util.stream.Stream;
 
 public class LanguageMatcher {
     private String name;
@@ -15,9 +13,9 @@ public class LanguageMatcher {
         this.mostFrequentWords = mostFrequentWords;
     }
 
-    public int matchBookCounts(Stream<String> bookWordStream) {
-        return (int) mostFrequentWords
-                .filter(new Column("value").isin(bookWordStream.toArray(String[]::new))).count();
+    int matchBookCounts(Dataset<String> bookWords) {
+        return (int) mostFrequentWords.join(bookWords,
+                mostFrequentWords.col("value").equalTo(bookWords.col("value"))).count();
     }
 
     public String getName() {

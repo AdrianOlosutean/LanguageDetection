@@ -13,7 +13,7 @@ public class LanguageDetection {
 
     public static final String PATH = "src/resources/";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         final SparkConf conf = new SparkConf()
                 .setAppName("sada")
                 .setMaster("local[*]");
@@ -39,7 +39,7 @@ public class LanguageDetection {
                     return new LanguageMatcher(langProcessor.getLanguageName(), mostFrequentWords);
                 }).collect(Collectors.toList());
 
-        LanguageClassifier languageClassifier = new LanguageClassifier(matchers);
-        languageClassifier.predictLanguage("/test/spanish/cadiz.txt");
+        LanguageClassifier languageClassifier = new LanguageClassifier(matchers,spark);
+        System.out.println(languageClassifier.predictLanguage("src/main/resources/test/portuguese/o-inferno.txt"));
     }
 }
