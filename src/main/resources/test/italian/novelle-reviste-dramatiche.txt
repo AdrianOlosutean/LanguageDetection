@@ -14,7 +14,7 @@ Commentator: Gioacchino Brognoligo
 
 Release Date: May 18, 2009 [EBook #28869]
 
-LanguageLearner: Italian
+Language: Italian
 
 
 *** START OF THIS PROJECT GUTENBERG EBOOK NOVELLE E RIVISTE DRAMMATICHE ***

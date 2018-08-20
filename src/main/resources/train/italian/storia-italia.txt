@@ -16,7 +16,7 @@ Editor: Fausto Nicolini
 
 Release Date: November 28, 2014 [EBook #47480]
 
-LanguageWordProcessor: Italian
+Language: Italian
 
 Character set encoding: UTF-8
 

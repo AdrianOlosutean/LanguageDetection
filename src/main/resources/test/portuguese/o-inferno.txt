@@ -14,7 +14,7 @@ Translator: Camilo Castelo Branco
 
 Release Date: April 22, 2009 [EBook #28584]
 
-LanguageLearner: Portuguese
+Language: Portuguese
 
 
 *** START OF THIS PROJECT GUTENBERG EBOOK O INFERNO ***

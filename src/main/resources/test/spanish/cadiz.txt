@@ -12,7 +12,7 @@ Author: Benito Pérez Galdós
 
 Release Date: June 23, 2007 [EBook #21906]
 
-LanguageLearner: Spanish
+Language: Spanish
 
 
 *** START OF THIS PROJECT GUTENBERG EBOOK CÁDIZ ***

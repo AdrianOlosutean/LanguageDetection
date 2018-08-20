@@ -12,7 +12,7 @@ Author: Federico De Roberto
 
 Release Date: May 19, 2010 [EBook #32441]
 
-LanguageWordProcessor: Italian
+Language: Italian
 
 
 *** START OF THIS PROJECT GUTENBERG EBOOK IL COLORE DEL TEMPO ***
