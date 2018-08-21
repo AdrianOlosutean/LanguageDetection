@@ -1,37 +1,45 @@
+import org.apache.spark.SparkConf;
+import org.apache.spark.sql.*;
+import prediction.LanguageClassifier;
+import prediction.LanguageMatcher;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LanguageDetection {
 
 
     public static final String PATH = "src/resources/";
 
-    public static void main(String[] args) throws IOException {
-        /*final SparkConf conf = new SparkConf()
+    public static void main(String[] args) {
+        final SparkConf conf = new SparkConf()
                 .setAppName("sada")
                 .setMaster("local[*]");
 
         final SparkSession spark = new SparkSession.Builder()
                 .config(conf)
-                .getOrCreate();*/
+                .getOrCreate();
+        LanguageWordProcessor italian = new LanguageWordProcessor("italian");
+        LanguageWordProcessor spanish = new LanguageWordProcessor("spanish");
+        LanguageWordProcessor portuguese = new LanguageWordProcessor("portuguese");
 
-//        Dataset<String> ds = spark.read().textFile("src/main/resources/train/spanish/trafalgar.txt");
-//        Dataset<Object> objectDataset = ds.flatMap(r -> r.split(""));
-
-
-        LanguageLearner italian = new LanguageLearner("train/italian");
-        LanguageLearner spanish = new LanguageLearner("train/spanish");
-        LanguageLearner portuguese = new LanguageLearner("train/portuguese");
-
-        List<LanguageLearner> allLanguages = new ArrayList<>();
+        List<LanguageWordProcessor> allLanguages = new ArrayList<>();
         allLanguages.add(italian);
         allLanguages.add(spanish);
         allLanguages.add(portuguese);
 
-        for (LanguageLearner language : allLanguages) {
-            List<String> allLanguageWords = language.getAllLanguageWords();
-            System.out.println(allLanguageWords.size());
-        }
+        List<LanguageMatcher> matchers = allLanguages.stream()
+                .map(langProcessor -> {
+                    List<String> languageWords = langProcessor.getAllLanguageWords();
+                    Dataset<String> dataset = spark.createDataset(languageWords, Encoders.STRING());
+                    Dataset<Row> mostFrequentWords = dataset.groupBy(new Column("value")).count().sort(new Column("count").desc())
+                            .limit(languageWords.size() / 20);
+                    return new LanguageMatcher(langProcessor.getLanguageName(), mostFrequentWords);
+                }).collect(Collectors.toList());
+
+        LanguageClassifier languageClassifier = new LanguageClassifier(matchers,spark);
+        System.out.println(languageClassifier.predictLanguage("src/main/resources/test/portuguese/o-inferno.txt"));
     }
 }
